@@ -147,7 +147,7 @@ function mostrarPersonagem(id) {
     // Renderiza cards das waifus
     const container = document.getElementById("cardsContainer");
     container.innerHTML = "";
-    p.waifus.forEach(w => container.appendChild(criarCard(w.nome, w.img, w.traits)));
+    p.waifus.forEach(w => container.appendChild(criarCard(w.nome, w.img, w.traits, w.ficha || {})));
 
     // Atualiza destaque no menu
     renderizarMenuPersonagens();
@@ -193,13 +193,14 @@ async function escolherImagem() {
     }
 }
 
-function criarCard(nome, img, traits) {
+function criarCard(nome, img, traits, ficha = {}) {
     const card = document.createElement("div");
     card.className = "card";
 
     const imgHTML = img
-        ? `<img src="${img}" alt="${nome}">`
-        : `<div style="width:140px;height:190px;background:#3a006688;border-radius:8px;margin:0 auto;border:1px solid #6a00cc;"></div>`;
+        ? `<img src="${img}" alt="${nome}" onclick="abrirFicha(this.closest('.card'))" title="Ver ficha">`
+        : `<div style="width:140px;height:190px;background:#3a006688;border-radius:8px;margin:0 auto;border:1px solid #6a00cc;cursor:pointer;" 
+            onclick="abrirFicha(this.closest('.card'))"></div>`;
 
     card.innerHTML = `
         ${imgHTML}
@@ -210,6 +211,9 @@ function criarCard(nome, img, traits) {
             <button class="btn-excluir" onclick="excluirCard(this.closest('.card'))">✕</button>
         </div>
     `;
+
+    // Guarda a ficha como dado no card
+    card.dataset.ficha = JSON.stringify(ficha);
 
     return card;
 }
@@ -237,7 +241,8 @@ async function salvarWaifu() {
     p.waifus = Array.from(cards).map(card => ({
         nome:   card.querySelector(".card-nome").textContent,
         img:    card.querySelector("img") ? card.querySelector("img").src : "",
-        traits: card.querySelector(".card-traits").textContent
+        traits: card.querySelector(".card-traits").textContent,
+        ficha:  JSON.parse(card.dataset.ficha || "{}")
     }));
 
     await salvarDados();
@@ -258,7 +263,8 @@ async function excluirCard(card) {
         p.waifus = Array.from(cards).map(card => ({
             nome:   card.querySelector(".card-nome").textContent,
             img:    card.querySelector("img") ? card.querySelector("img").src : "",
-            traits: card.querySelector(".card-traits").textContent
+            traits: card.querySelector(".card-traits").textContent,
+            ficha:  JSON.parse(card.dataset.ficha || "{}")
         }));
         await salvarDados();
     }, 300);
@@ -273,6 +279,102 @@ async function iniciar() {
     const dados = await window.electronAPI.lerWaifus();
     personagens = dados || [];
     renderizarMenuPersonagens();
+}
+
+// ==================== FICHA ====================
+let cardFichaAtual = null;
+
+function abrirFicha(card) {
+    cardFichaAtual = card;
+    const nome  = card.querySelector(".card-nome").textContent;
+    const img   = card.querySelector("img") ? card.querySelector("img").src : "";
+    const ficha = JSON.parse(card.dataset.ficha || "{}");
+
+    // Preenche o header
+    document.getElementById("fichaNome").textContent = nome;
+    const fichaImg = document.getElementById("fichaImg");
+    if (img) { fichaImg.src = img; fichaImg.style.display = "block"; }
+    else { fichaImg.style.display = "none"; }
+
+    // Preenche os campos
+    document.getElementById("fichaNivel").value        = ficha.nivel        || 1;
+    document.getElementById("fichaClasse").value       = ficha.classe       || "";
+    document.getElementById("fichaRaca").value         = ficha.raca         || "";
+    document.getElementById("fichaOrigem").value       = ficha.origem       || "";
+    document.getElementById("fichaForca").value        = ficha.forca        || 10;
+    document.getElementById("fichaAgilidade").value    = ficha.agilidade    || 10;
+    document.getElementById("fichaInteligencia").value = ficha.inteligencia || 10;
+    document.getElementById("fichaCarisma").value      = ficha.carisma      || 10;
+    document.getElementById("fichaDescricao").value    = ficha.descricao    || "";
+
+    // Preenche habilidades
+    const lista = document.getElementById("listaHabilidades");
+    lista.innerHTML = "";
+    (ficha.habilidades || []).forEach(h => adicionarHabilidade(h));
+
+    document.getElementById("modalFichaOverlay").classList.add("open");
+}
+
+function fecharFicha() {
+    document.getElementById("modalFichaOverlay").classList.remove("open");
+    cardFichaAtual = null;
+}
+
+function fecharFichaFora(event) {
+    if (event.target === document.getElementById("modalFichaOverlay")) fecharFicha();
+}
+
+function adicionarHabilidade(texto = "") {
+    const lista = document.getElementById("listaHabilidades");
+    const div = document.createElement("div");
+    div.className = "habilidade-item";
+    div.innerHTML = `
+        <input type="text" placeholder="Ex: Golpe Duplo — causa 2x de dano" value="${texto}">
+        <button class="btn-remover-hab" onclick="this.parentElement.remove()">✕</button>
+    `;
+    lista.appendChild(div);
+}
+
+async function salvarFicha() {
+    if (!cardFichaAtual) return;
+
+    const habilidades = Array.from(
+        document.querySelectorAll(".habilidade-item input")
+    ).map(i => i.value.trim()).filter(Boolean);
+
+    const ficha = {
+        nivel:        parseInt(document.getElementById("fichaNivel").value)        || 1,
+        classe:       document.getElementById("fichaClasse").value.trim(),
+        raca:         document.getElementById("fichaRaca").value.trim(),
+        origem:       document.getElementById("fichaOrigem").value.trim(),
+        forca:        parseInt(document.getElementById("fichaForca").value)        || 10,
+        agilidade:    parseInt(document.getElementById("fichaAgilidade").value)    || 10,
+        inteligencia: parseInt(document.getElementById("fichaInteligencia").value) || 10,
+        carisma:      parseInt(document.getElementById("fichaCarisma").value)      || 10,
+        descricao:    document.getElementById("fichaDescricao").value.trim(),
+        habilidades
+    };
+
+    // Atualiza o nome no card se foi editado
+    const nomeEditado = document.getElementById("fichaNome").textContent.trim();
+    if (nomeEditado) cardFichaAtual.querySelector(".card-nome").textContent = nomeEditado;
+
+    // Salva a ficha no dataset do card
+    cardFichaAtual.dataset.ficha = JSON.stringify(ficha);
+
+    // Sincroniza com o personagem e salva no JSON
+    const p = personagens.find(p => p.id === personagemAtualId);
+    const cards = document.querySelectorAll(".card");
+    p.waifus = Array.from(cards).map(card => ({
+        nome:   card.querySelector(".card-nome").textContent,
+        img:    card.querySelector("img") ? card.querySelector("img").src : "",
+        traits: card.querySelector(".card-traits").textContent,
+        ficha:  JSON.parse(card.dataset.ficha || "{}")
+    }));
+
+    await salvarDados();
+    fecharFicha();
+    alert("Ficha salva! ✦");
 }
 
 iniciar();
