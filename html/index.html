@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Waifus</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <h1>Site de waifus!</h1>
+    <h2>Irei listar todas aqui</h2>
+
+    <button class="btn-add" onclick="abrirModal()">+ Adicionar Waifu</button>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="fecharModalFora(event)">
+  <div class="modal">
+    <h3 id ="modalTitulo">Nova Waifu</h3>
+
+    <label>Nome:</label>
+    <input type="text" id="inputNome" placeholder="Ex: Tomoyo">
+
+    <label>Imagem:</label>
+    <button type="button" id="btnEscolherImg" onclick="escolherImagem()">📁 Escolher imagem</button>
+    <p id="nomeImagem" style="color:#f0f0ff; font-size:0.8rem; margin:0;">Nenhuma imagem escolhida</p>
+    <input type="hidden" id="inputImg">
+
+    <label>Características:</label>
+    <textarea id="inputTraits" rows="4" placeholder="Ex: Corajosa, misteriosa..."></textarea>
+
+    <div class="modal-actions">
+      <button onclick="fecharModal()">Cancelar</button>
+      <button class="btn-confirmar" id="btnConfirmar" onclick="salvarWaifu()">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+    <!--<div class="tabela1">
+        <table>
+            <thead>
+                <tr>
+                    <td>Tomoyo Vladskaya</td>
+                    <td>Lilith</td>
+                    <td>Meharu</td>
+                    <td>Runi</td>
+                    <td>Luna</td>
+                    <td>Eva Fegelein</td>
+                    <td>Aika</td>
+                    <td>Emmeline Blackwood</td>
+                    <td>Zahira</td>
+                    <td>Yurei</td>
+                </tr>
+            </thead>
+            <tbody>
+               <tr class="waifus">
+                    <td><img src="../img/Tomo chan.png" alt="TOMO CHAAAAAAANNN!"></td>
+                    <td><img src="../img/Lily.png" alt="Lily!!"></td>
+                    <td><img src="../img/Meh chan.png" alt="Meh chaaaannn!!"></td>
+                    <td><img src="../img/Runi.png" alt="Runi"></td>
+                    <td><img src="../img/Luna.png" alt="Luna"></td>
+                    <td><img src="../img/Eva.png" alt="Eva"></td>
+                    <td><img src="../img/Aika.png" alt="Aika"></td>
+                    <td><img src="../img/Mei.png" alt="Mei"></td>
+                    <td><img src="../img/Zahira.png" alt="Za za :3"></td>
+                    <td><img src="../img/Yurei.png" alt="Yu yu chan :3"></td>
+               </tr>
+            </tbody>
+        </table>
+    </div> -->
+
+    <div class="cards-container" id="cardsContainer"></div>
+
+    <script src="../js/script.js"></script>
+
+</body>
+</html>

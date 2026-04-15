@@ -1,0 +1,212 @@
+*{
+    font-family: comic sans ms;
+}
+
+body{
+    background-color: grey;
+    background-image: linear-gradient(to right, #280253, #4303aa);
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+h1{
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2rem;
+}
+h2{
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+
+.waifus img:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.tabela1 td{
+    background-color : #b329f3;
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.waifus td{
+    width: 120px;
+    overflow: hidden;
+}
+
+.waifus img{
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.btn-add{
+    display: block;
+    margin: 16px auto;
+    padding: 10px 24px;
+    background: purple;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn-add:hover{
+    background: #6a0dad;
+}
+
+/* Container que quebra a linha automaticamente*/
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.card {
+    background-color: #b329f3;
+    border-radius: 12px;
+    padding: 10px;
+    width: 160px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translate(-4px);
+}
+
+.card img {
+    width: 140px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s;
+    display: block;
+    margin: 0 auto;
+}
+
+.card img:hover {
+    transform: scale(1.07);
+    cursor: pointer;
+}
+
+.card-nome {
+    color: white;
+    font-weight: bold;
+    margin: 8px 0 4px;
+    font-size: 0.9rem;
+}
+
+.card-traits {
+    color: #f0d0ff;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+    min-height: 20px;
+}
+
+.card-botoes {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+#btnEscolherImg {
+    padding: 8px 12px;
+    background: #5500aa;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: comic sans ms;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+#btnEscolherImg:hover {
+    background: #7700cc;
+}
+
+.btn-editar {
+    flex: 1;
+    padding: 6px;
+    background: #5500aa;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.btn-editar:hover {
+    background: #7700cc;
+}
+
+.btn-excluir {
+    flex: 1;
+    padding: 6px;
+    background: #aa0033;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.btn-excluir:hover {
+    background: #cc0044;
+}
+
+
+/* Modal*/
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+    background: #4d01db;
+    padding: 32px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: white;
+}
+
+.modal label {
+    color: #f0d0ff;
+    font-size: 0.85rem;
+}
+
+.modal input, .modal textarea {
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-actions { display: flex; gap: 8px; }
+.modal-actions button { flex: 1; padding: 10px; cursor: pointer; border-radius: 6px; border: none; }
+.btn-confirmar { background: purple; color: white; }
