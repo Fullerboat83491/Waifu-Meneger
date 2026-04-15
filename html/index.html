@@ -9,13 +9,18 @@
 <body>
 
     <!-- BOTÃO DE ABRIR/FECHAR MENU -->
-    <button class="btn-toggle-menu" id="btnToggleMenu" onclick="toggleMenu()">☰</button>
+     <!-- BOTÃO PARA REABRIR (aparece quando menu está fechado) -->
+    <button class="btn-reabrir-menu" id="btnReabrirMenu" onclick="toggleMenu()" style="display:none;">☰</button>
 
     <!-- MENU LATERAL -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>Personagens</h2>
-            <button class="btn-novo-personagem" onclick="abrirModalPersonagem()">+ Novo</button>
+            <div style="display: flex; gap: 8px;">
+                <button class="btn-novo-personagem" onclick="abrirModalPersonagem()">+ Novo</button>
+                <!-- BOTÃO DE ABRIR/FECHAR MENU dentro da Sidebar -->
+                 <button class="btn-fechar-menu" onclick="toggleMenu()">X</button>
+            </div>
         </div>
         <ul class="lista-personagens" id="listaPersonagens"></ul>
     </aside>

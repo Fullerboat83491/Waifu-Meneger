@@ -46,6 +46,36 @@ body {
     letter-spacing: 1px;
 }
 
+.btn-fechar-menu {
+    padding: 5px 10px;
+    background: #3a0060;
+    color: #c097e0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-fechar-menu:hover { background: #4a0080; }
+
+.btn-reabrir-menu {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    background: #6a00cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 12px #00000055;
+}
+
+.btn-reabrir-menu:hover { background: #8800ff; }
+
 .btn-novo-personagem {
     padding: 5px 10px;
     background: #6a00cc;
@@ -113,27 +143,6 @@ body {
     font-size: 0.85rem;
     word-break: break-word;
 }
-
-/* ========== BOTÃO TOGGLE ========== */
-.btn-toggle-menu {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 100;
-    width: 40px;
-    height: 40px;
-    background: #6a00cc;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: left 0.3s ease, background 0.2s;
-    box-shadow: 0 2px 12px #00000055;
-}
-
-.btn-toggle-menu:hover { background: #8800ff; }
-.btn-toggle-menu.aberto { left: 256px; }
 
 /* ========== CONTEÚDO PRINCIPAL ========== */
 .conteudo {

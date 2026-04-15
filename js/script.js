@@ -9,7 +9,7 @@ function toggleMenu() {
     menuAberto = !menuAberto;
     document.getElementById("sidebar").classList.toggle("fechado", !menuAberto);
     document.getElementById("conteudo").classList.toggle("expandido", !menuAberto);
-    document.getElementById("btnToggleMenu").classList.toggle("aberto", menuAberto);
+    document.getElementById("btnReabrirMenu").style.display = menuAberto ? "none" : "block";
 }
 
 // ==================== PERSONAGENS ====================

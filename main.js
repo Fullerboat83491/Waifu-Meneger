@@ -22,7 +22,7 @@ function createWindow() {
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
-    if (process.plataform !== "darwin") app.quit();
+    if (process.platform !== "darwin") app.quit();
 });
 
 ipcMain.handle("selecionar-imagem", async () => {
