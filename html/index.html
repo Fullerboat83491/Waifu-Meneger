@@ -3,73 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site de Waifus</title>
+    <title>Waifus RPG</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <h1>Site de waifus!</h1>
-    <h2>Irei listar todas aqui</h2>
 
-    <button class="btn-add" onclick="abrirModal()">+ Adicionar Waifu</button>
+    <!-- BOTÃO DE ABRIR/FECHAR MENU -->
+    <button class="btn-toggle-menu" id="btnToggleMenu" onclick="toggleMenu()">☰</button>
 
-    <div class="modal-overlay" id="modalOverlay" onclick="fecharModalFora(event)">
-  <div class="modal">
-    <h3 id ="modalTitulo">Nova Waifu</h3>
+    <!-- MENU LATERAL -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Personagens</h2>
+            <button class="btn-novo-personagem" onclick="abrirModalPersonagem()">+ Novo</button>
+        </div>
+        <ul class="lista-personagens" id="listaPersonagens"></ul>
+    </aside>
 
-    <label>Nome:</label>
-    <input type="text" id="inputNome" placeholder="Ex: Tomoyo">
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo" id="conteudo">
+        <div class="topo">
+            <div id="infoPersonagem" class="info-personagem-topo" style="display:none;">
+                <img id="avatarTopo" src="" alt="">
+                <div>
+                    <h1 id="nomeTopo"></h1>
+                    <p id="bioTopo"></p>
+                </div>
+                <div class="acoes-personagem">
+                    <button class="btn-editar-p" onclick="editarPersonagemAtual()">✏ Editar</button>
+                    <button class="btn-excluir-p" onclick="excluirPersonagemAtual()">✕ Excluir</button>
+                </div>
+            </div>
+            <div id="semPersonagem" class="sem-personagem">
+                <p>👈 Selecione ou crie um personagem para começar</p>
+            </div>
+        </div>
 
-    <label>Imagem:</label>
-    <button type="button" id="btnEscolherImg" onclick="escolherImagem()">📁 Escolher imagem</button>
-    <p id="nomeImagem" style="color:#f0f0ff; font-size:0.8rem; margin:0;">Nenhuma imagem escolhida</p>
-    <input type="hidden" id="inputImg">
+        <button class="btn-add" id="btnAdicionarWaifu" style="display:none;" onclick="abrirModalWaifu()">+ Adicionar Waifu</button>
+        <div class="cards-container" id="cardsContainer"></div>
+    </main>
 
-    <label>Características:</label>
-    <textarea id="inputTraits" rows="4" placeholder="Ex: Corajosa, misteriosa..."></textarea>
-
-    <div class="modal-actions">
-      <button onclick="fecharModal()">Cancelar</button>
-      <button class="btn-confirmar" id="btnConfirmar" onclick="salvarWaifu()">Adicionar</button>
+    <!-- MODAL PERSONAGEM -->
+    <div class="modal-overlay" id="modalPersonagemOverlay" onclick="fecharModalPersonagemFora(event)">
+        <div class="modal">
+            <h3 id="modalPersonagemTitulo">Novo Personagem</h3>
+            <label>Nome:</label>
+            <input type="text" id="inputNomePersonagem" placeholder="Ex: Arthur Blackwood">
+            <label>Avatar:</label>
+            <button type="button" id="btnEscolherAvatar" onclick="escolherAvatar()">📁 Escolher avatar</button>
+            <p id="nomeAvatar" style="color:#f0d0ff;font-size:0.8rem;margin:0;">Nenhuma imagem escolhida</p>
+            <input type="hidden" id="inputAvatar">
+            <label>Bio:</label>
+            <textarea id="inputBio" rows="3" placeholder="Descrição do personagem..."></textarea>
+            <div class="modal-actions">
+                <button onclick="fecharModalPersonagem()">Cancelar</button>
+                <button class="btn-confirmar" id="btnConfirmarPersonagem" onclick="salvarPersonagem()">Criar</button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-    <!--<div class="tabela1">
-        <table>
-            <thead>
-                <tr>
-                    <td>Tomoyo Vladskaya</td>
-                    <td>Lilith</td>
-                    <td>Meharu</td>
-                    <td>Runi</td>
-                    <td>Luna</td>
-                    <td>Eva Fegelein</td>
-                    <td>Aika</td>
-                    <td>Emmeline Blackwood</td>
-                    <td>Zahira</td>
-                    <td>Yurei</td>
-                </tr>
-            </thead>
-            <tbody>
-               <tr class="waifus">
-                    <td><img src="../img/Tomo chan.png" alt="TOMO CHAAAAAAANNN!"></td>
-                    <td><img src="../img/Lily.png" alt="Lily!!"></td>
-                    <td><img src="../img/Meh chan.png" alt="Meh chaaaannn!!"></td>
-                    <td><img src="../img/Runi.png" alt="Runi"></td>
-                    <td><img src="../img/Luna.png" alt="Luna"></td>
-                    <td><img src="../img/Eva.png" alt="Eva"></td>
-                    <td><img src="../img/Aika.png" alt="Aika"></td>
-                    <td><img src="../img/Mei.png" alt="Mei"></td>
-                    <td><img src="../img/Zahira.png" alt="Za za :3"></td>
-                    <td><img src="../img/Yurei.png" alt="Yu yu chan :3"></td>
-               </tr>
-            </tbody>
-        </table>
-    </div> -->
-
-    <div class="cards-container" id="cardsContainer"></div>
+    <!-- MODAL WAIFU -->
+    <div class="modal-overlay" id="modalWaifuOverlay" onclick="fecharModalWaifuFora(event)">
+        <div class="modal">
+            <h3 id="modalWaifuTitulo">Nova Waifu</h3>
+            <label>Nome:</label>
+            <input type="text" id="inputNome" placeholder="Ex: Tomoyo">
+            <label>Imagem:</label>
+            <button type="button" id="btnEscolherImg" onclick="escolherImagem()">📁 Escolher imagem</button>
+            <p id="nomeImagem" style="color:#f0d0ff;font-size:0.8rem;margin:0;">Nenhuma imagem escolhida</p>
+            <input type="hidden" id="inputImg">
+            <label>Características:</label>
+            <textarea id="inputTraits" rows="4" placeholder="Ex: Corajosa, misteriosa..."></textarea>
+            <div class="modal-actions">
+                <button onclick="fecharModalWaifu()">Cancelar</button>
+                <button class="btn-confirmar" id="btnConfirmarWaifu" onclick="salvarWaifu()">Adicionar</button>
+            </div>
+        </div>
+    </div>
 
     <script src="../js/script.js"></script>
-
 </body>
 </html>
