@@ -1,8 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const {app} = require ('electron'); 
-const path = require('path');
 
 //usar apasta de dados do usuário (Documents/AppData) que tem permissão de escrita
 const jsonPath = path.join(app.getPath('userData'), "waifus.json");
