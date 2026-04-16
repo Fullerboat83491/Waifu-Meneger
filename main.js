@@ -1,8 +1,13 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const {app} = require ('electron'); 
+const parth = require('path');
 
-const jsonPath = path.join(__dirname, "data", "waifus.json");
+//usar apasta de dados do usuário (Documents/AppData) que tem permissão de escrita
+const jsonPath = path.join(app.getPath('userData'), "waifus.json");
+
+//const jsonPath = path.join(__dirname, "data", "waifus.json");
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -12,7 +17,7 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js'),
             sandbox: false,
             nodeIntegration: false,
-            webSecurity: false // Desativa a política de segurança de conteúdo
+            webSecurity: true // Desativa a política de segurança de conteúdo
         }
     })
 
