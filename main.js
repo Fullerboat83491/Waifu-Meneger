@@ -12,7 +12,7 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js'),
             sandbox: false,
             nodeIntegration: false,
-            webSecurity: true // Desativa a política de segurança de conteúdo
+            webSecurity: false // Desativa a política de segurança de conteúdo
         }
     })
 
