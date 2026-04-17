@@ -696,3 +696,47 @@ body {
 }
 
 .btn-salvar-ficha:hover { background: #9900ff; }
+/* ========== BACKUP (EXPORTAR / IMPORTAR) ========== */
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid #6a00cc44;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-exportar,
+.btn-importar {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: comic sans ms;
+    font-size: 0.82rem;
+    text-align: left;
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.btn-exportar {
+    background: #2a005a;
+    color: #c97aff;
+    border: 1px solid #6a00cc;
+}
+
+.btn-exportar:hover { background: #3d007f; }
+
+.btn-importar {
+    background: #001f3a;
+    color: #7ac8ff;
+    border: 1px solid #0055aa;
+}
+
+.btn-importar:hover { background: #002d55; }
+
+.btn-exportar:disabled,
+.btn-importar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

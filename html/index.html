@@ -8,8 +8,7 @@
 </head>
 <body>
 
-    <!-- BOTÃO DE ABRIR/FECHAR MENU -->
-     <!-- BOTÃO PARA REABRIR (aparece quando menu está fechado) -->
+    <!-- BOTÃO PARA REABRIR (aparece quando menu está fechado) -->
     <button class="btn-reabrir-menu" id="btnReabrirMenu" onclick="toggleMenu()" style="display:none;">☰</button>
 
     <!-- MENU LATERAL -->
@@ -18,11 +17,16 @@
             <h2>Personagens</h2>
             <div style="display: flex; gap: 8px;">
                 <button class="btn-novo-personagem" onclick="abrirModalPersonagem()">+ Novo</button>
-                <!-- BOTÃO DE ABRIR/FECHAR MENU dentro da Sidebar -->
-                 <button class="btn-fechar-menu" onclick="toggleMenu()">X</button>
+                <button class="btn-fechar-menu" onclick="toggleMenu()">X</button>
             </div>
         </div>
         <ul class="lista-personagens" id="listaPersonagens"></ul>
+
+        <!-- BOTÕES DE BACKUP -->
+        <div class="sidebar-footer">
+            <button class="btn-exportar" id="btnExportar" onclick="exportarBackup()" title="Exporta todos os personagens e imagens para um arquivo de backup">📤 Exportar</button>
+            <button class="btn-importar" id="btnImportar" onclick="importarBackup()" title="Importa um arquivo de backup criado anteriormente">📥 Importar</button>
+        </div>
     </aside>
 
     <!-- CONTEÚDO PRINCIPAL -->
