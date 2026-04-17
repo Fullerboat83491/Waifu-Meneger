@@ -63,4 +63,9 @@ Para rodar o Harém Manager localmente, você precisará do [Node.js](https://no
 * **Gustavo Henrique** - Desenvolvimento Principal
 
 ---
+
+## Download
+Você pode baixar a versão mais recente aqui
+[**Baixar Waifu Manager v1.0.0 (setup.exe, setup.linux, setup.mac)**](https://github.com/Fullerboat83491/Harem-Meneger/releases/tag/v1.0)
+
 *Este projeto foi desenvolvido como parte de estudos em desenvolvimento de sistemas desktop e gestão de dados para RPG.*
