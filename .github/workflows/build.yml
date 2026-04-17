@@ -70,11 +70,20 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      # O macOS tem o comando iconutil nativo que gera o .icns corretamente.
-      # O icon.iconset já está no repositório (pasta build/icon.iconset)
-      # com os PNGs nos tamanhos certos — o step abaixo converte para .icns.
+      # Gera o iconset a partir do icon.png e converte para .icns com iconutil nativo do macOS
       - name: Gerar icon.icns nativo
-        run: iconutil -c icns build/icon.iconset -o build/icon.icns
+        run: |
+          mkdir -p build/icon.iconset
+          for size in 16 32 64 128 256 512; do
+            sips -z $size $size build/icon.png --out build/icon.iconset/icon_${size}x${size}.png
+          done
+          sips -z 32  32  build/icon.png --out build/icon.iconset/icon_16x16@2x.png
+          sips -z 64  64  build/icon.png --out build/icon.iconset/icon_32x32@2x.png
+          sips -z 256 256 build/icon.png --out build/icon.iconset/icon_128x128@2x.png
+          sips -z 512 512 build/icon.png --out build/icon.iconset/icon_256x256@2x.png
+          sips -z 512 512 build/icon.png --out build/icon.iconset/icon_512x512.png
+          cp build/icon.png build/icon.iconset/icon_512x512@2x.png
+          iconutil -c icns build/icon.iconset -o build/icon.icns
 
       - name: Gerar executável Mac
         run: npm run build:mac
