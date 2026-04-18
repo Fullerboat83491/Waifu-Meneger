@@ -1,4 +1,4 @@
-# 🌸 Harém Manager
+# 🌸 Waifu Manager
 
 O **Harém Manager** é uma aplicação desktop desenvolvida com Electron para a gestão de personagens em campanhas de RPG. O sistema organiza as informações em cards visuais, permitindo a visualização rápida de atributos e imagens das personagens.
 
